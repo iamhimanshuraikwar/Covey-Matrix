@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covey Matrix Todo App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+        </header>
+
+        <div class="todo-input">
+            <div class="input-group">
+                <input type="text" id="taskInput" placeholder="What needs to be done?">
+                <select id="quadrantSelect">
+                    <option value="1">Quadrant 1: Urgent & Important</option>
+                    <option value="2">Quadrant 2: Important, Not Urgent</option>
+                    <option value="3">Quadrant 3: Urgent, Not Important</option>
+                    <option value="4">Quadrant 4: Not Urgent, Not Important</option>
+                </select>
+                <button onclick="addTask()" class="add-btn">
+                    <i class="fas fa-plus"></i> Add Task
+                </button>
+            </div>
+        </div>
+
+        <div class="matrix-container">
+            <div class="matrix-row">
+                <div class="matrix-cell" id="quadrant1">
+                    <div class="quadrant-header">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h3>Urgent & Important</h3>
+                    </div>
+                    <p class="quadrant-description">Do these tasks first</p>
+                    <ul class="task-list"></ul>
+                </div>
+                <div class="matrix-cell" id="quadrant2">
+                    <div class="quadrant-header">
+                        <i class="fas fa-star"></i>
+                        <h3>Important, Not Urgent</h3>
+                    </div>
+                    <p class="quadrant-description">Schedule these tasks</p>
+                    <ul class="task-list"></ul>
+                </div>
+            </div>
+            <div class="matrix-row">
+                <div class="matrix-cell" id="quadrant3">
+                    <div class="quadrant-header">
+                        <i class="fas fa-clock"></i>
+                        <h3>Urgent, Not Important</h3>
+                    </div>
+                    <p class="quadrant-description">Delegate if possible</p>
+                    <ul class="task-list"></ul>
+                </div>
+                <div class="matrix-cell" id="quadrant4">
+                    <div class="quadrant-header">
+                        <i class="fas fa-trash"></i>
+                        <h3>Not Urgent, Not Important</h3>
+                    </div>
+                    <p class="quadrant-description">Eliminate these tasks</p>
+                    <ul class="task-list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="completed-tasks-section">
+            <div class="completed-header" onclick="toggleCompletedTasks()">
+                <div class="completed-title">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Completed Tasks</h3>
+                    <span class="completed-count">0</span>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="completed-content">
+                <div class="completed-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="1">Quadrant 1</button>
+                    <button class="filter-btn" data-filter="2">Quadrant 2</button>
+                    <button class="filter-btn" data-filter="3">Quadrant 3</button>
+                    <button class="filter-btn" data-filter="4">Quadrant 4</button>
+                </div>
+                <ul class="completed-list"></ul>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
