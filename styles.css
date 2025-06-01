@@ -219,7 +219,7 @@ select:focus {
 }
 
 .task-item:hover {
-    background: hsl(var(--accent));
+    background: hsl(var(--background));
 }
 
 .task-item.completed span {
