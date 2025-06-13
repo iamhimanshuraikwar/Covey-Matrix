@@ -1,6 +1,7 @@
 // Get DOM elements
 const taskInput = document.getElementById('taskInput');
 const quadrantSelect = document.getElementById('quadrantSelect');
+const categorySelect = document.getElementById('categorySelect');
 
 // Load tasks from localStorage
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -44,13 +45,19 @@ function renderCompletedTasks() {
         const li = document.createElement('li');
         li.className = 'task-item completed';
         li.innerHTML = `
-            <span>${task.text} <span class="quadrant-badge">Q${task.quadrant}</span></span>
-            <button onclick="restoreTask(${task.id})" class="complete-btn" title="Restore Task">
-                <i class="fas fa-undo"></i>
-            </button>
-            <button onclick="deleteCompletedTask(${task.id})" class="delete-btn" title="Delete Task">
-                <i class="fas fa-trash"></i>
-            </button>
+            <div class="task-content">
+                <span>${task.text}</span>
+                <span class="category-badge category-${task.category}">${task.category.charAt(0).toUpperCase() + task.category.slice(1)}</span>
+                <span class="quadrant-badge">Q${task.quadrant}</span>
+            </div>
+            <div class="task-actions">
+                <button onclick="restoreTask(${task.id})" class="complete-btn" title="Restore Task">
+                    <i class="fas fa-undo"></i>
+                </button>
+                <button onclick="deleteCompletedTask(${task.id})" class="delete-btn" title="Delete Task">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
         `;
         completedList.appendChild(li);
     });
@@ -79,6 +86,9 @@ function deleteCompletedTask(id) {
 // Function to add a new task
 function addTask() {
     const taskText = taskInput.value.trim();
+    const quadrant = quadrantSelect.value;
+    const category = categorySelect.value;
+    
     if (taskText === '') {
         showNotification('Please enter a task', 'error');
         return;
@@ -87,8 +97,9 @@ function addTask() {
     const task = {
         id: Date.now(),
         text: taskText,
+        quadrant: quadrant,
+        category: category,
         completed: false,
-        quadrant: parseInt(quadrantSelect.value),
         createdAt: new Date().toISOString()
     };
 
@@ -179,13 +190,18 @@ function renderTasks() {
         const li = document.createElement('li');
         li.className = `task-item ${task.completed ? 'completed' : ''}`;
         li.innerHTML = `
-            <span>${task.text}</span>
-            <button onclick="completeTask(${task.id})" class="complete-btn" title="Complete Task">
-                <i class="fas fa-check"></i>
-            </button>
-            <button onclick="deleteTask(${task.id})" class="delete-btn" title="Delete Task">
-                <i class="fas fa-trash"></i>
-            </button>
+            <div class="task-content">
+                <span>${task.text}</span>
+                <span class="category-badge category-${task.category}">${task.category.charAt(0).toUpperCase() + task.category.slice(1)}</span>
+            </div>
+            <div class="task-actions">
+                <button onclick="completeTask(${task.id})" class="complete-btn" title="Complete Task">
+                    <i class="fas fa-check"></i>
+                </button>
+                <button onclick="deleteTask(${task.id})" class="delete-btn" title="Delete Task">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
         `;
         quadrants[task.quadrant].appendChild(li);
     });
@@ -215,4 +231,34 @@ updateCompletedCount();
 // Add event listeners for filter buttons
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+});
+
+// Filter completed tasks by category
+function filterCompletedTasks(category) {
+    const completedList = document.querySelector('.completed-list');
+    completedList.innerHTML = '';
+    
+    const filteredTasks = category === 'all' 
+        ? completedTasks 
+        : completedTasks.filter(task => task.category === category);
+    
+    filteredTasks.forEach(task => {
+        const li = createCompletedTaskElement(task);
+        completedList.appendChild(li);
+    });
+}
+
+// Initialize the app
+document.addEventListener('DOMContentLoaded', () => {
+    renderTasks();
+    renderCompletedTasks();
+    
+    // Add event listeners for category filters
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterCompletedTasks(btn.dataset.filter);
+        });
+    });
 }); 
