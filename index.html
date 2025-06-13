@@ -22,6 +22,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div class="alert-banner" id="alertBanner">
+        <span class="alert-text">
+            <strong>Warning:</strong> If you use a hard refresh (Ctrl+F5 or Cmd+Shift+R), your tasks may be deleted. Please export your data regularly.
+        </span>
+        <button class="alert-close" onclick="document.getElementById('alertBanner').style.display='none'">&times;</button>
+    </div>
     <div class="container">
         <header>
         </header>
