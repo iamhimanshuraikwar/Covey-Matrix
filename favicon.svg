@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17L4 12"></path></svg> 
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="32" height="32" rx="6" fill="#4A90E2"/>
+    
+    <!-- Matrix Grid -->
+    <path d="M16 4V28M4 16H28" stroke="white" stroke-width="2" stroke-opacity="0.3"/>
+    
+    <!-- Quadrant Indicators -->
+    <circle cx="8" cy="8" r="2" fill="#FF4B4B"/> <!-- Q1: Urgent & Important -->
+    <circle cx="24" cy="8" r="2" fill="#4CAF50"/> <!-- Q2: Important, Not Urgent -->
+    <circle cx="8" cy="24" r="2" fill="#FFC107"/> <!-- Q3: Urgent, Not Important -->
+    <circle cx="24" cy="24" r="2" fill="#9E9E9E"/> <!-- Q4: Not Urgent, Not Important -->
+</svg> 
